@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "128466750503",
-    "firebase_url": "https://fir-chat-3f993.firebaseio.com",
-    "project_id": "fir-chat-3f993",
-    "storage_bucket": "fir-chat-3f993.appspot.com"
+    "project_number": "72769421676",
+    "firebase_url": "https://finderfood-37df6.firebaseio.com",
+    "project_id": "finderfood-37df6",
+    "storage_bucket": "finderfood-37df6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:128466750503:android:189124f721f361bc631202",
+        "mobilesdk_app_id": "1:72769421676:android:7b1a3f4e22ae0e7dceb349",
         "android_client_info": {
           "package_name": "com.example.finderfood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "128466750503-of3vt49ttb2ii8fi2q323uouk52beers.apps.googleusercontent.com",
+          "client_id": "72769421676-ckqnf43cs447iacpoku55thrlgev7q52.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCW2gs85ASrdUVyJrYdNBeq6TDtgvjUvEY"
+          "current_key": "AIzaSyANOJzwZswa3QnFWuGjwmao9kBH6nfaSGE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "128466750503-of3vt49ttb2ii8fi2q323uouk52beers.apps.googleusercontent.com",
+              "client_id": "72769421676-ckqnf43cs447iacpoku55thrlgev7q52.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

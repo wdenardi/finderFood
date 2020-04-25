@@ -26,14 +26,16 @@
                 android:value="com.example.finderfood.MessagesActivity" />
         </activity>
         <activity android:name="com.example.finderfood.MessagesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.example.finderfood.RegisterActivity" />
-        <activity android:name="com.example.finderfood.LoginActivity" />
+        <activity android:name="com.example.finderfood.LoginActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
     </application>
 
 </manifest>

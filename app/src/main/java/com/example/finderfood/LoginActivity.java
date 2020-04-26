@@ -46,12 +46,14 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Email e senha devem ser preenchidos", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //metodo para logar no Firebase
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 Log.i("Teste - ID", task.getResult().getUser().getUid());
-                                Intent intent = new Intent(LoginActivity.this, MessagesActivity.class);
+                                                   Intent intent = new Intent(LoginActivity.this, LoginEfetuadoActivity.class);
+                             //   Intent intent = new Intent(LoginActivity.this, LoginEfetuadoImageViewActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }

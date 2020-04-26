@@ -31,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.UUID;
 
+//Classe utilizada para criar o usuario
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText mEdtUsername;
@@ -68,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    //método utilizado para selecionar a foto
     private void selectedPhto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -79,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 0) {
+            //caminho da foto
             mSelectedUri = data.getData();
 
             Bitmap bitmap = null;
@@ -90,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                 mImgPhoto.setImageDrawable(drawable);
                  */
                 mImgPhoto.setImageDrawable(new BitmapDrawable(bitmap));
+                //escondendo o botao após a foto ser setada
                 mBtnSelectedPhoto.setAlpha(0);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -97,11 +101,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    //metodo para criar o usuario
     private void createUser() {
         String nome = mEdtUsername.getText().toString();
         String email = mEditEmail.getText().toString();
         String senha = mEditSenha.getText().toString();
 
+        //validando se usuario ou senha nao estáo vazios
         if (nome == null || nome.isEmpty() || email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
             Toast.makeText(this, "Email e senha devem ser preenchidos", Toast.LENGTH_SHORT).show();
             return;
@@ -111,8 +117,9 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.i("Teste - ID", task.getResult().getUser().getUid());
+                            //Log.i("Teste - ID", task.getResult().getUser().getUid());
                             saveUserinFireBase();
+                            Toast.makeText(RegisterActivity.this,"Usuario foi criado com sucesso.",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -125,6 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void saveUserinFireBase() {
         String filename = UUID.randomUUID().toString();
+        //criando
         final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/" + filename);
         ref.putFile(mSelectedUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -135,14 +143,21 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 //Log.i("Teste", uri.toString());
                                 String urlFoto = uri.toString();
+                                Log.i("Teste - ID", FirebaseAuth.getInstance().getUid());
+                                Log.i("Teste - Username", mEdtUsername.getText().toString());
                                 Log.i("Teste - LINK DA FOTO", urlFoto);
 
+                                //pegando o id do usuario
                                 String uid = FirebaseAuth.getInstance().getUid();
+                                //pegando o nome
                                 String username = mEdtUsername.getText().toString();
+                                //pegando o caminho da foto
                                 String profileUrl = uri.toString();
+
 
                                 User user = new User(uid, username, profileUrl);
 
+                                //criando a coleção users
                                 FirebaseFirestore.getInstance().collection("users")
                                         .document(uid)
                                         .set(user)

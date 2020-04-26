@@ -13,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginEfetuadoImageViewActivity"></activity>
-        <activity android:name=".LoginEfetuadoActivity">
-
-        </activity>
+        <activity android:name=".AdicionarReceitasActivity"></activity>
+        <activity android:name=".ReceitasSalvasActivity" />
+        <activity android:name=".LoginEfetuadoImageViewActivity" />
+        <activity android:name=".LoginEfetuadoActivity" />
         <activity android:name=".BuscarReceitasActivity" />
         <activity android:name=".ChatActivity">
             <meta-data

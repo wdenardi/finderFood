@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import com.xwray.groupie.ViewHolder;
 
 import java.util.List;
 
+//Tela após o usuario se logar
 public class LoginEfetuadoActivity extends AppCompatActivity {
 
     private GroupAdapter adapter;
@@ -37,7 +40,46 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_efetuado);
 
-        RecyclerView rv = findViewById(R.id.recycler);
+        Button receitasSalvas = findViewById(R.id.btnReceitasSalvas);
+        Button adicionarReceitas = findViewById(R.id.btnAdicionarReceitas);
+        Button buscarReceitas = findViewById(R.id.btnBuscarReceitas);
+        Button chat = findViewById(R.id.btnChat);
+
+        receitasSalvas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Toast.makeText(LoginEfetuadoActivity.this,"Botao Receitas Salvas clicado",Toast.LENGTH_LONG).show();
+                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this,ReceitasSalvasActivity.class);
+                startActivity(intentBuscaReceitas);
+            }
+        });
+        adicionarReceitas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toast.makeText(LoginEfetuadoActivity.this,"Botao Adicionar Receitas clicado",Toast.LENGTH_LONG).show();
+                Intent intentAdicionarReceitas = new Intent(LoginEfetuadoActivity.this,AdicionarReceitasActivity.class);
+                startActivity(intentAdicionarReceitas);
+
+            }
+        });
+        buscarReceitas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(LoginEfetuadoActivity.this,"Botao BuscarReceitas clicado",Toast.LENGTH_LONG).show();
+                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this,BuscarReceitasActivity.class);
+                startActivity(intentBuscaReceitas);
+
+            }
+        });
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(LoginEfetuadoActivity.this,"Botao Chat clicado",Toast.LENGTH_LONG).show();
+                Intent intentChat = new Intent(LoginEfetuadoActivity.this,ChatActivity.class);
+                startActivity(intentChat);
+
+            }
+        });
 
         verificaAutenticacao();
 
@@ -75,8 +117,6 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
         Picasso.get()
                 .load(user.getProfileUrl())
                 .into(imgPhoto);
-
-
     }
 
     private void verificaAutenticacao() {

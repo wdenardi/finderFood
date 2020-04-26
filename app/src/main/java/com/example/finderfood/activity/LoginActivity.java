@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.finderfood.R;
 import com.example.finderfood.exceptions.ExceptionsClass;
+import com.example.finderfood.util.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+        FirebaseUtil.getInstanceAuth().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -84,10 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean verifyFileds(String... fields) {
         if (fields[0].isEmpty() && fields[1].isEmpty()) {
-            ExceptionsClass.emptyFields(this, "email e senha");
+            ExceptionsClass.emptyFields(this);
             return true;
         } else if (fields[0].isEmpty()) {
-            ExceptionsClass.emptyFields(this, "email");
+            ExceptionsClass.emptyFields(this, "e-mail");
             return true;
         } else if (fields[1].isEmpty()) {
             ExceptionsClass.emptyFields(this, "senha");

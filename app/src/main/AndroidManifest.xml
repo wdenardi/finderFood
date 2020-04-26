@@ -13,23 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.finderfood.ChatActivity">
+        <activity android:name="com.example.finderfood.activity.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.finderfood.MessagesActivity" />
+                android:value="com.example.finderfood.activity.MessagesActivity" />
         </activity>
         <activity
-            android:name="com.example.finderfood.ContactsActivity"
+            android:name="com.example.finderfood.activity.ContactsActivity"
             android:label="@string/contacts">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.finderfood.MessagesActivity" />
+                android:value="com.example.finderfood.activity.MessagesActivity" />
         </activity>
-        <activity android:name="com.example.finderfood.MessagesActivity">
+        <activity android:name="com.example.finderfood.activity.MessagesActivity">
 
         </activity>
-        <activity android:name="com.example.finderfood.RegisterActivity" />
-        <activity android:name="com.example.finderfood.LoginActivity" >
+        <activity android:name="com.example.finderfood.activity.RegisterActivity" />
+        <activity android:name="com.example.finderfood.activity.LoginActivity" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

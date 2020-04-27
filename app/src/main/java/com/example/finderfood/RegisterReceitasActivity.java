@@ -133,7 +133,7 @@ public class RegisterReceitasActivity extends AppCompatActivity {
         userItens.setTipoReceita(tipoReceita);
         userItens.setDescricaoReceita(descricaoReceita);
 
-        //salvando no firebase o usuario
+        //salvando no firebase a receita
         FirebaseFirestore.getInstance().collection("/receitas")
                 .document(user.getUuid())
                 .collection(tipoReceita)

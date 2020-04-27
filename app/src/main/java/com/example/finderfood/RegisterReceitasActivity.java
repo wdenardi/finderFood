@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class RegisterReceitasActivity extends AppCompatActivity {
     private Button mBtnSelectedPhoto;
     private Uri mSelectedUri;
     private ImageView mImgPhoto;
+    private String caminhoFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +115,7 @@ public class RegisterReceitasActivity extends AppCompatActivity {
     }
 
 
-    private void createReceita(User user) {
-
-        Toast.makeText(this,"Botao adicionar receita clicado",Toast.LENGTH_LONG).show();
+    private void createReceita(final User user) {
 
         String tituloReceita = mEdtNomeReceita.getText().toString();
         String tipoReceita = mEditTipoReceita.getText().toString();
@@ -127,11 +127,40 @@ public class RegisterReceitasActivity extends AppCompatActivity {
             return;
         }
 
+        String filename = UUID.randomUUID().toString();
+        //salvando a foto no firestore
+        final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/" + filename);
+        ref.putFile(mSelectedUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                caminhoFoto = uri.toString();
+
+                                Log.i("Teste - ID", FirebaseAuth.getInstance().getUid());
+                                Log.i("Teste - Username", user.getUsername().toString());
+                                Log.d("Teste - LINK DA FOTO", caminhoFoto);
+                            }
+                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+                    }
+                });
+
+        //Criando o objeto
         UserItens userItens = new UserItens();
         userItens.setUuid(user.getUuid());
         userItens.setTituloReceita(tituloReceita);
         userItens.setTipoReceita(tipoReceita);
         userItens.setDescricaoReceita(descricaoReceita);
+        userItens.setProfileUrl(caminhoFoto);
+
 
         //salvando no firebase a receita
         FirebaseFirestore.getInstance().collection("/receitas")
@@ -141,15 +170,24 @@ public class RegisterReceitasActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d("Teste",documentReference.getId());
+                        Log.d("Teste", documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("Teste",e.getMessage());
+                        Log.e("Teste", e.getMessage());
                     }
                 });
+
+        Toast toast = Toast.makeText(RegisterReceitasActivity.this, "Receita cadastrada com sucesso!", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
+
+        //Direcionado para a tela inicial 
+        Intent intentVaiParaTelaInicial = new Intent(RegisterReceitasActivity.this, LoginEfetuadoActivity.class);
+        intentVaiParaTelaInicial.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentVaiParaTelaInicial);
+
     }
 }
-

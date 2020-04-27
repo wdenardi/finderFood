@@ -8,4 +8,7 @@
     <string name="logout">Deslogar</string>
     <string name="btn_chat">Enviar</string>
     <string name="message">Digite a mensagem</string>
+    <string name="email">Email</string>
+    <string name="nome">Nome</string>
+    <string name="senha">Senha</string>
 </resources>

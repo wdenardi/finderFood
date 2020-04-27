@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AdicionarReceitasActivity"></activity>
+        <activity android:name=".RegisterReceitasActivity"></activity>
         <activity android:name=".ReceitasSalvasActivity" />
         <activity android:name=".LoginEfetuadoImageViewActivity" />
         <activity android:name=".LoginEfetuadoActivity" />

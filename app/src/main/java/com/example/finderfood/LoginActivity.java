@@ -51,19 +51,25 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
                                 Log.i("Teste - ID", task.getResult().getUser().getUid());
-                                                   Intent intent = new Intent(LoginActivity.this, LoginEfetuadoActivity.class);
-                             //   Intent intent = new Intent(LoginActivity.this, LoginEfetuadoImageViewActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, LoginEfetuadoActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.i("Teste - ERRO", e.getMessage());
+                                }else{
+                                    Log.w("signInWithEmail:failed", task.getException());
+                                    Toast.makeText(LoginActivity.this, "Ocorreu um erro durante a autenticação ,verifque se usuario ou senha estão corretos."
+                                            , Toast.LENGTH_LONG).show();
+                                    Log.e("Teste",task.getException().getMessage());
+                                }
                             }
                         });
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Log.i("Teste", e.getMessage());
+//                            }
+//                        });
 
             }
         });

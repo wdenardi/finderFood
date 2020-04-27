@@ -112,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Email e senha devem ser preenchidos", Toast.LENGTH_SHORT).show();
             return;
         }
+        //autenticando
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -130,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    //salvando no firebase o usuario
     private void saveUserinFireBase() {
         String filename = UUID.randomUUID().toString();
         //criando

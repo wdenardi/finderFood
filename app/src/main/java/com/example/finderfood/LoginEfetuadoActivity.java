@@ -34,6 +34,8 @@ import java.util.List;
 public class LoginEfetuadoActivity extends AppCompatActivity {
 
     private GroupAdapter adapter;
+    private User user;
+    private User usertemp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +47,15 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
         Button buscarReceitas = findViewById(R.id.btnBuscarReceitas);
         Button chat = findViewById(R.id.btnChat);
 
+        verificaAutenticacao();
+
+        fetchUsers();
+
         receitasSalvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(LoginEfetuadoActivity.this,"Botao Receitas Salvas clicado",Toast.LENGTH_LONG).show();
-                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this,ReceitasSalvasActivity.class);
+                // Toast.makeText(LoginEfetuadoActivity.this,"Botao Receitas Salvas clicado",Toast.LENGTH_LONG).show();
+                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this, ReceitasSalvasActivity.class);
                 startActivity(intentBuscaReceitas);
             }
         });
@@ -57,7 +63,9 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Toast.makeText(LoginEfetuadoActivity.this,"Botao Adicionar Receitas clicado",Toast.LENGTH_LONG).show();
-                Intent intentAdicionarReceitas = new Intent(LoginEfetuadoActivity.this,AdicionarReceitasActivity.class);
+
+                Intent intentAdicionarReceitas = new Intent(LoginEfetuadoActivity.this, RegisterReceitasActivity.class);
+                intentAdicionarReceitas.putExtra("user", usertemp);
                 startActivity(intentAdicionarReceitas);
 
             }
@@ -66,7 +74,7 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(LoginEfetuadoActivity.this,"Botao BuscarReceitas clicado",Toast.LENGTH_LONG).show();
-                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this,BuscarReceitasActivity.class);
+                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this, BuscarReceitasActivity.class);
                 startActivity(intentBuscaReceitas);
 
             }
@@ -75,15 +83,11 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(LoginEfetuadoActivity.this,"Botao Chat clicado",Toast.LENGTH_LONG).show();
-                Intent intentChat = new Intent(LoginEfetuadoActivity.this,ChatActivity.class);
+                Intent intentChat = new Intent(LoginEfetuadoActivity.this, ChatActivity.class);
                 startActivity(intentChat);
 
             }
         });
-
-        verificaAutenticacao();
-
-        fetchUsers();
 
     }
 
@@ -99,11 +103,13 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
                         List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot doc : docs) {
 
-                            User user = doc.toObject(User.class);
+                            //transformando o documento em uma objeto User
+                            user = doc.toObject(User.class);
                             //comparando a id dos usuarios
                             if (user.getUuid().equals(FirebaseAuth.getInstance().getUid())) {
                                 //Toast.makeText(LoginEfetuadoActivity.this, "Id - Iguais " + user.getUuid().toString(), Toast.LENGTH_LONG).show();
-                                String url = user.getProfileUrl().toString();
+                                //String url = user.getProfileUrl().toString();
+                                usertemp = user;
                                 preencheImageView(user);
                             }
                         }

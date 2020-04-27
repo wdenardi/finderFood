@@ -101,35 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    //metodo para criar o usuario
-    private void createUser() {
-        String nome = mEdtUsername.getText().toString();
-        String email = mEditEmail.getText().toString();
-        String senha = mEditSenha.getText().toString();
 
-        //validando se usuario ou senha nao estáo vazios
-        if (nome == null || nome.isEmpty() || email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
-            Toast.makeText(this, "Email e senha devem ser preenchidos", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        //autenticando
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //Log.i("Teste - ID", task.getResult().getUser().getUid());
-                            saveUserinFireBase();
-                            Toast.makeText(RegisterActivity.this,"Usuario foi criado com sucesso.",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i("Teste - ERRO", e.getMessage());
-            }
-        });
-    }
 
     //salvando no firebase o usuario
     private void saveUserinFireBase() {

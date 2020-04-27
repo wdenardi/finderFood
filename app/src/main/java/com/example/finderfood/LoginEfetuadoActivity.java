@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finderfood.activity.ChatActivity;
+import com.example.finderfood.activity.FindRecipeActivity;
+import com.example.finderfood.activity.LoginActivity;
+import com.example.finderfood.activity.RegisterActivity;
+import com.example.finderfood.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -64,7 +69,7 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Toast.makeText(LoginEfetuadoActivity.this,"Botao Adicionar Receitas clicado",Toast.LENGTH_LONG).show();
 
-                Intent intentAdicionarReceitas = new Intent(LoginEfetuadoActivity.this, RegisterReceitasActivity.class);
+                Intent intentAdicionarReceitas = new Intent(LoginEfetuadoActivity.this, RegisterActivity.class);
                 intentAdicionarReceitas.putExtra("user", usertemp);
                 startActivity(intentAdicionarReceitas);
 
@@ -74,7 +79,7 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(LoginEfetuadoActivity.this,"Botao BuscarReceitas clicado",Toast.LENGTH_LONG).show();
-                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this, BuscarReceitasActivity.class);
+                Intent intentBuscaReceitas = new Intent(LoginEfetuadoActivity.this, FindRecipeActivity.class);
                 startActivity(intentBuscaReceitas);
 
             }

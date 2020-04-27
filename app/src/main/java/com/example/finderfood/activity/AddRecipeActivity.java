@@ -15,31 +15,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.finderfood.MessagesActivity;
 import com.example.finderfood.R;
-import com.example.finderfood.RegisterActivity;
-import com.example.finderfood.User;
 import com.example.finderfood.dao.ItensDAO;
-import com.example.finderfood.dao.UserDAO;
-import com.example.finderfood.exceptions.ExceptionsClass;
 import com.example.finderfood.model.UserItens;
-import com.example.finderfood.util.FirebaseUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.UUID;
 
 public class AddRecipeActivity extends AppCompatActivity {
@@ -115,11 +102,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getUid();
         String url = urlFoto();
 
-        String filename = UUID.randomUUID().toString();
-        //criando
-        final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/" + filename);
-        ref.putFile(mSelectedUri);
-
         ItensDAO dao = new ItensDAO();
         UserItens userItens = new UserItens();
         userItens.setUuid(uid);
@@ -134,22 +116,22 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private String urlFoto() {
         String filename = UUID.randomUUID().toString();
-        //criando
         final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/" + filename);
-        ref.putFile(mSelectedUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                String fotoUrl = uri.toString();
+                Log.d("Teste URL Foto", fotoUrl.toString());
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String urlFoto = uri.toString();
-
-
-                            }
-                        });
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Teste", e.getMessage());
                     }
                 });
+
         return urlFoto();
     }
 

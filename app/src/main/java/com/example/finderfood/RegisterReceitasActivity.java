@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,7 @@ public class RegisterReceitasActivity extends AppCompatActivity {
 
     private EditText mEdtNomeReceita;
     private EditText mEditTipoReceita;
-    private EditText mEditDescricaoReceita;
+    private TextView mEditDescricaoReceita;
     private Button mBtnCadastrarReceita;
     private Button mBtnSelectedPhoto;
     private Uri mSelectedUri;
@@ -184,7 +185,7 @@ public class RegisterReceitasActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
 
-        //Direcionado para a tela inicial 
+        //Direcionado para a tela inicial
         Intent intentVaiParaTelaInicial = new Intent(RegisterReceitasActivity.this, LoginEfetuadoActivity.class);
         intentVaiParaTelaInicial.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intentVaiParaTelaInicial);

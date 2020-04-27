@@ -39,7 +39,7 @@ public class RegisterReceitasActivity extends AppCompatActivity {
 
     private EditText mEdtNomeReceita;
     private EditText mEditTipoReceita;
-    private TextView mEditDescricaoReceita;
+    private EditText mEditDescricaoReceita;
     private Button mBtnCadastrarReceita;
     private Button mBtnSelectedPhoto;
     private Uri mSelectedUri;

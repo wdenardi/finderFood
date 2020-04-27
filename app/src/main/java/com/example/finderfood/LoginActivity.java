@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finderfood.activity.AddRecipeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -46,30 +47,22 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Email e senha devem ser preenchidos", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //metodo para logar no Firebase
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                Log.i("Teste - ID", task.getResult().getUser().getUid());
+                                                Intent intent = new Intent(LoginActivity.this, AddRecipeActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
-                                Log.i("Teste - ID", task.getResult().getUser().getUid());
-                                Intent intent = new Intent(LoginActivity.this, LoginEfetuadoActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                }else{
-                                    Log.w("signInWithEmail:failed", task.getException());
-                                    Toast.makeText(LoginActivity.this, "Ocorreu um erro durante a autenticação ,verifque se usuario ou senha estão corretos."
-                                            , Toast.LENGTH_LONG).show();
-                                    Log.e("Teste",task.getException().getMessage());
-                                }
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i("Teste - ERRO", e.getMessage());
                             }
                         });
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Log.i("Teste", e.getMessage());
-//                            }
-//                        });
 
             }
         });

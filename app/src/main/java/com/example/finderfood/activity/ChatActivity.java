@@ -1,4 +1,4 @@
-package com.example.finderfood;
+package com.example.finderfood.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.finderfood.R;
+import com.example.finderfood.model.Contact;
+import com.example.finderfood.model.Message;
+import com.example.finderfood.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

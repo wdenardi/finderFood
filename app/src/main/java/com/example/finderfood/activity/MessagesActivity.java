@@ -1,4 +1,4 @@
-package com.example.finderfood;
+package com.example.finderfood.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.finderfood.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MessagesActivity extends AppCompatActivity {

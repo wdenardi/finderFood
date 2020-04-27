@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ChatFirebase.iml" filepath="$PROJECT_DIR$/ChatFirebase.iml" group="ChatFirebase" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ChatFirebase/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/finderFood.iml" filepath="$PROJECT_DIR$/.idea/finderFood.iml" />
     </modules>
   </component>
 </project>

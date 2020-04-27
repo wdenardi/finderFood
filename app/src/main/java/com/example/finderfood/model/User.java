@@ -1,4 +1,4 @@
-package com.example.finderfood;
+package com.example.finderfood.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -19,32 +19,32 @@ import java.util.UUID;
 public class UserDAO {
 
     public void createUser(Uri uri, final String... args){
-        String filename = UUID.randomUUID().toString();
-        final StorageReference ref = FirebaseUtil.getInstanceStorage().getReference("/images/" + filename);
-        ref.putFile(uri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String urlFoto = uri.toString();
-                                Log.i("Teste - LINK DA FOTO", urlFoto);
+                                    String filename = UUID.randomUUID().toString();
+                                    final StorageReference ref = FirebaseUtil.getInstanceStorage().getReference("/images/" + filename);
+                                    ref.putFile(uri)
+                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                        @Override
+                                                        public void onSuccess(Uri uri) {
+                                                            String urlFoto = uri.toString();
+                                                            Log.i("Teste - LINK DA FOTO", urlFoto);
 
-                                String uid = FirebaseAuth.getInstance().getUid();
-                                String username = args[0];
-                                String profileUrl = uri.toString();
+                                                            String uid = FirebaseAuth.getInstance().getUid();
+                                                            String username = args[0];
+                                                            String profileUrl = uri.toString();
 
-                                User user = new User(uid, username, profileUrl);
+                                                            User user = new User(uid, username, profileUrl);
 
-                                FirebaseUtil.getInstanceFirestore().collection("users")
-                                        .document(uid)
-                                        .set(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                            }
-                                        })
+                                                            FirebaseUtil.getInstanceFirestore().collection("users")
+                                                                    .document(uid)
+                                                                    .set(user)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                        }
+                                                                    })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {

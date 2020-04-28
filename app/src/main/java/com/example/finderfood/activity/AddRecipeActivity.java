@@ -76,15 +76,15 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
 
         ItensDAO dao = new ItensDAO();
-        dao.saveItensRecip(tituloReceita,tipoReceita,descReceita,addReceita);
+        //dao.saveItensRecip(tituloReceita,tipoReceita,descReceita,addReceita);
 
-        }
+    }
 
     private void selectedPhto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 0);
-     }
+    }
 
     private void AddReceita() {
         String eNtituloReceita = tituloReceita.getText().toString();

@@ -13,28 +13,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.finderfood.activity.ChatActivity">
+        <activity android:name=".activity.AdicionarReceitasActivity"></activity>
+        <activity android:name=".activity.ReceitasSalvasActivity" />
+        <activity android:name=".activity.LoginEfetuadoImageViewActivity" />
+        <activity android:name=".activity.LoginEfetuadoActivity" />
+        <activity android:name=".activity.BuscarReceitasActivity" />
+        <activity android:name=".activity.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.finderfood.activity.MessagesActivity" />
         </activity>
         <activity
-            android:name="com.example.finderfood.activity.ContactsActivity"
+            android:name=".activity.ContactsActivity"
             android:label="@string/contacts">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.finderfood.activity.MessagesActivity" />
         </activity>
-        <activity android:name="com.example.finderfood.activity.MessagesActivity">
+        <activity android:name=".activity.MessagesActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </activity>
-        <activity android:name="com.example.finderfood.activity.RegisterActivity" />
-        <activity android:name="com.example.finderfood.activity.LoginActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

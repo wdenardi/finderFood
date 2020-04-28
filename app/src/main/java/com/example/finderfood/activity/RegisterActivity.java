@@ -1,9 +1,5 @@
 package com.example.finderfood.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,27 +11,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.finderfood.R;
 import com.example.finderfood.dao.UserDAO;
 import com.example.finderfood.exceptions.ExceptionsClass;
-import com.example.finderfood.model.User;
 import com.example.finderfood.util.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.UUID;
 
+//Classe utilizada para criar o usuario
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText mEdtUsername;
@@ -75,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    //método utilizado para selecionar a foto
     private void selectedPhto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -86,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 0) {
+            //caminho da foto
             mSelectedUri = data.getData();
 
             Bitmap bitmap = null;
@@ -97,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                 mImgPhoto.setImageDrawable(drawable);
                  */
                 mImgPhoto.setImageDrawable(new BitmapDrawable(bitmap));
+                //escondendo o botao após a foto ser setada
                 mBtnSelectedPhoto.setAlpha(0);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -104,6 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    //metodo para criar o usuario
     private void createUser() {
         final String nome = mEdtUsername.getText().toString();
         String email = mEditEmail.getText().toString();

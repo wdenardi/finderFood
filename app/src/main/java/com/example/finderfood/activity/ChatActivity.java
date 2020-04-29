@@ -146,7 +146,7 @@ public class ChatActivity extends AppCompatActivity {
                             contact.setPhotoUrl(user.getProfileUrl());
                             contact.setTimestamp(message.getTimestamp());
                             contact.setLastMessage(message.getText());
-                            
+
                             FirebaseFirestore.getInstance().collection("/last-messages")
                                     .document(fromId)
                                     .collection("contacts")

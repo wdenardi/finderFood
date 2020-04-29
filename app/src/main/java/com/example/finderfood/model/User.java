@@ -5,8 +5,11 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
+    //user id
     private String uuid;
+    //nome do usuario
     private String username;
+    //caminho da foto
     private String profileUrl;
 
     public User() {

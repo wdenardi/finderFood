@@ -1,8 +1,5 @@
 package com.example.finderfood.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.finderfood.R;
 import com.example.finderfood.exceptions.ExceptionsClass;
 import com.example.finderfood.util.FirebaseUtil;
@@ -19,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mEditEmail;
@@ -40,11 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         mBtnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mEditEmail.getText().toString();
-                String password = mEditSenha.getText().toString();
-
-                login(email, password);
-
+                login(mEditEmail.getText().toString(), mEditSenha.getText().toString());
             }
         });
 
@@ -67,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(LoginActivity.this, MessagesActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, LoginEfetuadoActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else {

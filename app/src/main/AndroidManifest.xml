@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FeedActivity"></activity>
+        <activity
+            android:name=".FeedActivity"
+            android:label="Feed">
+             </activity>
         <activity android:name=".AdicionarReceitasActivity" />
         <activity android:name=".RegisterReceitasActivity" />
         <activity android:name=".ReceitasSalvasActivity" />
@@ -40,6 +43,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

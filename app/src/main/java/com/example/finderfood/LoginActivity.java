@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Log.i("Teste - ID", task.getResult().getUser().getUid());
                                     //Intent para o Feed
-                                    //Intent intent = new Intent(LoginActivity.this, FeedActivity.class);
+                                   // Intent intent = new Intent(LoginActivity.this, FeedActivity.class);
                                     Intent intent = new Intent(LoginActivity.this, LoginEfetuadoActivity.class);
 
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

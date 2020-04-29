@@ -28,6 +28,9 @@ public class UserItens implements Parcelable {
         }
     };
 
+    public UserItens(UserItens useritens) {
+    }
+
     public String getUuid() {
         return uuid;
     }

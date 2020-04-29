@@ -12,18 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -45,6 +41,9 @@ public class RegisterReceitasActivity extends AppCompatActivity {
     private Uri mSelectedUri;
     private ImageView mImgPhoto;
     private String caminhoFoto;
+    private String descricaoReceita;
+    private String tituloReceita;
+    private String tipoReceita;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,10 +116,10 @@ public class RegisterReceitasActivity extends AppCompatActivity {
 
 
     private void createReceita(final User user) {
-
-        String tituloReceita = mEdtNomeReceita.getText().toString();
-        String tipoReceita = mEditTipoReceita.getText().toString();
-        String descricaoReceita = mEditDescricaoReceita.getText().toString();
+        
+        tituloReceita = mEdtNomeReceita.getText().toString();
+        tipoReceita = mEditTipoReceita.getText().toString();
+        descricaoReceita = mEditDescricaoReceita.getText().toString();
 
         //validando se usuario ou senha nao estáo vazios
         if (tituloReceita == null || tituloReceita.isEmpty() || tipoReceita == null || tipoReceita.isEmpty() || descricaoReceita == null || descricaoReceita.isEmpty()) {
@@ -142,7 +141,18 @@ public class RegisterReceitasActivity extends AppCompatActivity {
 
                                 Log.i("Teste - ID", FirebaseAuth.getInstance().getUid());
                                 Log.i("Teste - Username", user.getUsername().toString());
-                                Log.d("Teste - LINK DA FOTO", caminhoFoto);
+                                Log.i("Teste - LINK DA FOTO", caminhoFoto);
+
+
+                                //Criando o objeto
+                                UserItens userItens = new UserItens();
+                                userItens.setUuid(user.getUuid());
+                                userItens.setTituloReceita(tituloReceita);
+                                userItens.setTipoReceita(tipoReceita);
+                                userItens.setDescricaoReceita(descricaoReceita);
+                                userItens.setProfileUrl(caminhoFoto);
+
+                                salvarReceita(userItens);
                             }
                         })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -154,20 +164,23 @@ public class RegisterReceitasActivity extends AppCompatActivity {
                     }
                 });
 
-        //Criando o objeto
-        UserItens userItens = new UserItens();
-        userItens.setUuid(user.getUuid());
-        userItens.setTituloReceita(tituloReceita);
-        userItens.setTipoReceita(tipoReceita);
-        userItens.setDescricaoReceita(descricaoReceita);
-        userItens.setProfileUrl(caminhoFoto);
 
 
+        Toast toast = Toast.makeText(RegisterReceitasActivity.this, "Receita cadastrada com sucesso!", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
+
+        //Direcionado para a tela inicial
+        Intent intentVaiParaTelaInicial = new Intent(RegisterReceitasActivity.this, LoginEfetuadoActivity.class);
+        intentVaiParaTelaInicial.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentVaiParaTelaInicial);
+
+    }
+
+    private void salvarReceita(UserItens user) {
         //salvando no firebase a receita
         FirebaseFirestore.getInstance().collection("/receitas")
-                .document(user.getUuid())
-                .collection(tipoReceita)
-                .add(userItens)
+                .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -180,15 +193,5 @@ public class RegisterReceitasActivity extends AppCompatActivity {
                         Log.e("Teste", e.getMessage());
                     }
                 });
-
-        Toast toast = Toast.makeText(RegisterReceitasActivity.this, "Receita cadastrada com sucesso!", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
-
-        //Direcionado para a tela inicial
-        Intent intentVaiParaTelaInicial = new Intent(RegisterReceitasActivity.this, LoginEfetuadoActivity.class);
-        intentVaiParaTelaInicial.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intentVaiParaTelaInicial);
-
     }
 }

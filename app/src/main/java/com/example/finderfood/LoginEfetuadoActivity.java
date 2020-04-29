@@ -62,7 +62,6 @@ public class LoginEfetuadoActivity extends AppCompatActivity {
         adicionarReceitas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(LoginEfetuadoActivity.this,"Botao Adicionar Receitas clicado",Toast.LENGTH_LONG).show();
 
                 Intent intentAdicionarReceitas = new Intent(LoginEfetuadoActivity.this, RegisterReceitasActivity.class);
                 intentAdicionarReceitas.putExtra("user", usertemp);

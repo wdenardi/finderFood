@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.finderfood.R;
 import com.example.finderfood.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,8 +50,8 @@ public class ContactsActivity extends AppCompatActivity {
             public void onItemClick(@NonNull Item item, @NonNull View view) {
                 Intent intent = new Intent(ContactsActivity.this, ChatActivity.class);
 
-                UserItem userItem =(UserItem)item;
-                intent.putExtra("user",userItem.user);
+                UserItem userItem = (UserItem) item;
+                intent.putExtra("user", userItem.user);
 
                 startActivity(intent);
             }
@@ -101,5 +104,8 @@ public class ContactsActivity extends AppCompatActivity {
         public int getLayout() {
             return R.layout.item_user;
         }
+
     }
+
+
 }

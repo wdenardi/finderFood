@@ -1,6 +1,5 @@
 package com.example.finderfood.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,16 +21,15 @@ import com.example.finderfood.util.FirebaseUtil;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -86,8 +84,11 @@ public class BuscarReceitasActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull User user) {
-                holder.setItem(user);
-                getImageRecipes(user);
+                Receita receita = null;
+                if(user.getUuid().equals("VNBaZDIEVHN5H6LfEk6iHEIaUYp1")){
+                    receita = getImageRecipes(user);
+                }
+                holder.setItem(user,receita);
             }
 
             @Override
@@ -140,20 +141,19 @@ public class BuscarReceitasActivity extends AppCompatActivity {
     }
 
     // tentativa de listar receitas dos usuários
-    private void getImageRecipes(final User user){
-        Query query = FirebaseUtil.getInstanceFirestore().collection("receitas");
+    private Receita getImageRecipes(final User user){
+        Query query = FirebaseUtil.getInstanceFirestore().collection("receitas")
+                .whereEqualTo("uuid", user.getUuid());
 
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot documentSnapshots) {
-                List<DocumentSnapshot> docs = documentSnapshots.getDocuments();
-                for(DocumentSnapshot doc : docs){
-                    Receita receita = doc.toObject(Receita.class);
-                    if(receita.getUuid().equals(user.getUuid())){
-                        ExceptionsClass.showToastMakeText(getApplicationContext(),"Sucesso! : " + receita.getDescricaoReceita());
-                    }
-                }
+        Task<QuerySnapshot> task = query.get();
+        List<Receita> receitas = new ArrayList<>();
+        if(task.isSuccessful()){
+            for(QueryDocumentSnapshot d : task.getResult()){
+                Receita receita = d.toObject(Receita.class);
+                receitas.add(receita);
             }
-        });
+        }
+
+        return receitas.get(0);
     }
 }
